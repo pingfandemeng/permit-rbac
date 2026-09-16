@@ -1,0 +1,77 @@
+server:
+  port: 18080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: permit
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    encoding: UTF-8
+    baseline-on-migrate: true
+    table: flyway_schema_history
+  redis:
+    timeout: 10s
+    lettuce:
+      pool:
+        max-active: 16
+        max-idle: 8
+        min-idle: 0
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: delFlag
+      logic-delete-value: "2"
+      logic-not-delete-value: "0"
+
+sa-token:
+  token-name: Authorization
+  timeout: 604800
+  activity-timeout: 7200
+  active-timeout: 7200
+  is-concurrent: true
+  is-share: true
+  token-style: uuid
+  is-log: false
+  is-read-header: true
+  is-read-cookie: false
+  is-read-body: false
+  is-write-header: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    com.company.permit: info
+    com.company.permit.system.user.mapper: debug

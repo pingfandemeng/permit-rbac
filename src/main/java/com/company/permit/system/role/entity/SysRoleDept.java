@@ -1,0 +1,11 @@
+package com.company.permit.system.role.entity;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+@Data
+@TableName("sys_role_dept")
+public class SysRoleDept {
+    private Long roleId;
+    private Long deptId;
+}
